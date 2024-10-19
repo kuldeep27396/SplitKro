@@ -145,5 +145,80 @@ Here's a high-level diagram of the SplitKro application architecture:
 
 This diagram illustrates the main components of the SplitKro application and how they interact with each other. The application follows a typical Spring Boot architecture with additional components like Swagger for API documentation and Spring Security for authentication.
 
----
+## Data Modeling
+
+The SplitKro application uses a relational database model to manage users, groups, expenses, and settlements. Below is a detailed explanation of each table and its relationships.
+
+### Tables
+
+1. **users**
+   - Stores user account information
+   - Fields: id, username, email, password_hash, created_at, updated_at
+   - Primary Key: id
+   - Unique Constraints: username, email
+
+2. **groups**
+   - Represents expense sharing groups
+   - Fields: id, name, description, created_by, created_at, updated_at
+   - Primary Key: id
+   - Foreign Key: created_by references users(id)
+
+3. **user_group**
+   - Manages the many-to-many relationship between users and groups
+   - Fields: user_id, group_id, role, joined_at
+   - Primary Key: (user_id, group_id)
+   - Foreign Keys:
+      - user_id references users(id)
+      - group_id references groups(id)
+
+4. **expenses**
+   - Records individual expenses
+   - Fields: id, group_id, payer_id, amount, description, date, category_id, created_at, updated_at
+   - Primary Key: id
+   - Foreign Keys:
+      - group_id references groups(id)
+      - payer_id references users(id)
+      - category_id references categories(id)
+
+5. **expense_splits**
+   - Tracks how expenses are split among users
+   - Fields: id, expense_id, user_id, amount, created_at, updated_at
+   - Primary Key: id
+   - Foreign Keys:
+      - expense_id references expenses(id)
+      - user_id references users(id)
+
+6. **settlements**
+   - Records settlements between users
+   - Fields: id, payer_id, payee_id, amount, group_id, settled_at, created_at, updated_at
+   - Primary Key: id
+   - Foreign Keys:
+      - payer_id references users(id)
+      - payee_id references users(id)
+      - group_id references groups(id)
+
+7. **categories**
+   - Defines categories for expenses
+   - Fields: id, name, created_at, updated_at
+   - Primary Key: id
+   - Unique Constraint: name
+
+### Relationships
+
+- A user can belong to multiple groups, and a group can have multiple users (Many-to-Many relationship managed through user_group table)
+- An expense belongs to one group and is paid by one user (payer)
+- An expense can be split among multiple users (One-to-Many relationship with expense_splits)
+- A settlement involves two users (payer and payee) and is associated with a group
+- Each expense can belong to one category
+
+### Key Features
+
+- Use of SERIAL type for auto-incrementing primary keys
+- Timestamps (created_at, updated_at) for audit trails
+- Proper foreign key constraints to maintain referential integrity
+- Indexes on frequently queried columns for performance optimization
+- Use of DECIMAL type for financial amounts to ensure precision
+- Trigger-based automatic updating of 'updated_at' columns
+
+
 
