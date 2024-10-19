@@ -12,11 +12,17 @@ SplitKro is a robust expense sharing application built with Spring Boot, designe
 7. [Low-Level Design (LLD)](#low-level-design-lld)
 8. [High-Level Design (HLD)](#high-level-design-hld)
 
-## Features
-- User management
-- Group creation and management
-- Expense tracking and splitting
-- Debt calculation
+## Requirement Gathering
+
+| Feature | Requirements |
+|---------|--------------|
+| User Management | - User registration with email and password<br>- User profile creation and editing<br>- Password reset functionality<br>- User authentication and authorization<br>- User roles (e.g., regular user, group admin) |
+| Group Creation and Management | - Create new groups with a name and description<br>- Add/remove members to/from groups<br>- Assign group administrators<br>- Group settings (e.g., default split method, currency)<br>- Group invitation system |
+| Expense Tracking and Splitting | - Add new expenses with amount, description, and date<br>- Assign payer for each expense<br>- Specify split method (equal, exact amounts, percentages)<br>- Ability to split expenses among selected group members<br>- Categorize expenses (e.g., food, transportation, accommodation)<br>- Attach receipts or images to expenses |
+| Debt Calculation | - Real-time calculation of balances within groups<br>- Individual balance calculation for each user<br>- Simplify debts to minimize transactions<br>- Support for multiple currencies<br>- Historical debt tracking |
+| Reporting and Analytics | - Generate expense reports by date range, category, or group<br>- Visualize spending patterns with charts and graphs<br>- Export reports in various formats (PDF, CSV)<br>- Personal spending insights and trends |
+| Settlement | - Mark debts as settled<br>- Record settlement transactions<br>- Integrate with payment gateways for direct settlements<br>- Settlement reminders and notifications |
+| Notifications | - Email notifications for new expenses, settlements, and reminders<br>- In-app notifications for group activities<br>- Customizable notification preferences |
 
 ## Technology Stack
 - Java 17
