@@ -149,6 +149,9 @@ This diagram illustrates the main components of the SplitKro application and how
 
 The SplitKro application uses a relational database model to manage users, groups, expenses, and settlements. Below is a detailed explanation of each table and its relationships.
 
+
+![image](https://github.com/user-attachments/assets/f8272d4d-9cbf-46b4-85eb-433f0b48c5dc)
+
 ### Tables
 
 1. **users**
